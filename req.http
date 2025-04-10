@@ -1,0 +1,11 @@
+
+## POST USER
+curl --request POST \
+  --url http://localhost:3333/users \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/10.3.1' \
+  --data '{
+	"name" : "Mrs.",
+  "email": "teste@teste.com",
+  "password": "123456"
+}'
