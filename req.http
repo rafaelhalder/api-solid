@@ -6,6 +6,6 @@ curl --request POST \
   --header 'User-Agent: insomnia/10.3.1' \
   --data '{
 	"name" : "Mrs.",
-  "email": "teste@teste.com",
+  "email": "teste@test23e.com",
   "password": "123456"
 }'
