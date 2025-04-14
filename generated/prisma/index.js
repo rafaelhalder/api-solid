@@ -147,7 +147,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/rafael/rafa/project/api-solid/generated/prisma",
+      "value": "C:\\Users\\rafae\\Documents\\project\\api-solid\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -156,16 +156,21 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/rafael/rafa/project/api-solid/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\rafae\\Documents\\project\\api-solid\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.6.0",
@@ -174,16 +179,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://docker:docker@localhost:5432/apisolid?schema=public"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id @default(uuid())\n  name          String\n  email         String    @unique\n  password_hash String\n  created_at    DateTime  @default(now())\n  checkIns      CheckIn[]\n\n  @@map(\"users\")\n}\n\nmodel CheckIn {\n  id           String    @id @default(uuid())\n  createdAt    DateTime  @default(now())\n  validated_at DateTime?\n\n  user    User   @relation(fields: [user_id], references: [id])\n  user_id String\n\n  gym    Gym    @relation(fields: [gym_id], references: [id])\n  gym_id String\n\n  @@map(\"check_ins\")\n}\n\nmodel Gym {\n  id          String    @id @default(uuid())\n  title       String\n  description String?\n  phone       String?\n  latitude    Decimal\n  longitude   Decimal\n  checkIns    CheckIn[]\n\n  @@map(\"gyms\")\n}\n",
-  "inlineSchemaHash": "a73f2a494fca3426b42275269ea00c8ada80e2b8f0065f4b120ad01ad3a2a67f",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../generated/prisma\"\n  binaryTargets = [\"native\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id            String    @id @default(uuid())\n  name          String\n  email         String    @unique\n  password_hash String\n  created_at    DateTime  @default(now())\n  checkIns      CheckIn[]\n\n  @@map(\"users\")\n}\n\nmodel CheckIn {\n  id           String    @id @default(uuid())\n  createdAt    DateTime  @default(now())\n  validated_at DateTime?\n\n  user    User   @relation(fields: [user_id], references: [id])\n  user_id String\n\n  gym    Gym    @relation(fields: [gym_id], references: [id])\n  gym_id String\n\n  @@map(\"check_ins\")\n}\n\nmodel Gym {\n  id          String    @id @default(uuid())\n  title       String\n  description String?\n  phone       String?\n  latitude    Decimal\n  longitude   Decimal\n  checkIns    CheckIn[]\n\n  @@map(\"gyms\")\n}\n",
+  "inlineSchemaHash": "b8fa7baf32eaed32abdbe1e4927af9d7d3366b5c28614e3cfa39b396d6397537",
   "copyEngine": true
 }
 
@@ -192,8 +198,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "../generated/prisma",
     "generated/prisma",
+    "prisma",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -222,8 +228,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "../generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "../generated/prisma/schema.prisma")
+path.join(process.cwd(), "generated/prisma/schema.prisma")
